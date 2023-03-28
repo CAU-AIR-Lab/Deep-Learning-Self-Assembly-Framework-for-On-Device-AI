@@ -1,0 +1,52 @@
+# '''
+# Hyper-parameters for the evolutionary search process and yolo
+# You can modify these hyper-parameters to see how they influence the final mAP of the search sub-net.
+# '''
+# python train.py --batch 32 --cfg yolov5m6.yaml --weights '' --data coco128.yaml --img 1280 --epochs 300
+
+
+# supernet search
+constraint_type: flops # Let's do FLOPs-constrained search
+efficiency_constraint: 600  # FLops constraint (M), suggested range [150, 600]
+max_latency: 25
+pop_size: 4
+niter: 5
+mutate_prob: 0.1 # The probability of mutation in evolutionary search
+parent_ratio: 0.25 # The ratio of networks that are used as parents for next generation
+mutation_ratio: 0.5 # The ratio of networks that are generated through mutation in generation n >= 2.
+efficiency_predictor: flops_lookup_table # To use a predefined efficiency predictor.
+accuracy_predictor: accuracy_predictor # To use a predefined accuracy_predictor predictor.
+population_size: 100 # The size of population in each generation
+max_time_budget: 500 # How many generations of population to be searched
+
+# yolo hyps
+lr0: 0.01  # initial learning rate (SGD=1E-2, Adam=1E-3)
+lrf: 0.1  # final OneCycleLR learning rate (lr0 * lrf)
+momentum: 0.937  # SGD momentum/Adam beta1
+weight_decay: 0.0005  # optimizer weight decay 5e-4
+warmup_epochs: 3.0  # warmup epochs (fractions ok)
+warmup_momentum: 0.8  # warmup initial momentum
+warmup_bias_lr: 0.1  # warmup initial bias lr
+box: 0.05  # box loss gain
+cls: 0.3  # cls loss gain
+cls_pw: 1.0  # cls BCELoss positive_weight
+obj: 0.7  # obj loss gain (scale with pixels)
+obj_pw: 1.0  # obj BCELoss positive_weight
+iou_t: 0.20  # IoU training threshold
+anchor_t: 4.0  # anchor-multiple threshold
+# anchors: 3  # anchors per output layer (0 to ignore)
+fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)
+hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
+hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)
+hsv_v: 0.4  # image HSV-Value augmentation (fraction)
+degrees: 0.0  # image rotation (+/- deg)
+translate: 0.1  # image translation (+/- fraction)
+scale: 0.9  # image scale (+/- gain)
+shear: 0.0  # image shear (+/- deg)
+perspective: 0.0  # image perspective (+/- fraction), range 0-0.001
+flipud: 0.0  # image flip up-down (probability)
+fliplr: 0.5  # image flip left-right (probability)
+mosaic: 1.0  # image mosaic (probability)
+mixup: 0.1  # image mixup (probability)
+copy_paste: 0.0  # segment copy-paste (probability)
+
