@@ -1,4 +1,4 @@
-# ondevice_ai
+# Detection
 
 
 ## Installation
